@@ -1,0 +1,10 @@
+Package: r2spmf
+Title: Links R 2 the SPMF Library for frequent itemsets and sequences mining
+Version: 0.0.0.9000
+Authors@R: person("Matthieu", "Gousseff", email = "matthieu.gousseff@gmail.com", role = c("aut", "cre"))
+Description: SPMF is a java library developped by Philippe Fournier Viger in order to mine frequent itemsets and sequences. The input format is frugal but not very intuitive. This package provides functions to convert dataframes into input files, and to query SPMF algorithms. 
+Depends: R (>= 3.4.2)
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1.9000
