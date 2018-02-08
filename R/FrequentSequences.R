@@ -11,7 +11,7 @@
 #' @param maxWhole is the maximum length of time for a whole sequence to be counted
 #' @param Those time parameters are only considered when the input is a timed sequence. The only algorithme to be used are then "Fournier08-Closed+time" and "HirateYamana"
 #' @return a dataframe with three columns. sequence contains all the frequent sequences. support is the number of times this sequence occurs, and frequence is support divided by the total number of sequences
-#' @keywords
+#' @keywords sequences
 #' @examples
 #'
 #'

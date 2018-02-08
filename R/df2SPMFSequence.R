@@ -5,15 +5,15 @@
 #' @param ID the name of the column of IDs, the sequences are built for a given ID
 #' @param itemset the name of the column of itemsets, that is of the product bought together. You need to provide at least one of itemset or time parameters
 #' @param time the name of the column where the time of an event is stored.You need to provide at least one of itemset or time parameters
-#' @param timeFormat the format in which the time column is encoded (example "%d-%m-%Y") If provided df2SPMFBasket will assume you want time to be taken into account. To build the proper format, please refer the man page of strptime (via ?strptime)
+#' @param timeFormat the format in which the time column is encoded (example "\%d-\%m-\%Y") If provided df2SPMFBasket will assume you want time to be taken into account. To build the proper format, please refer the man page of strptime (via ?strptime)
 #' @param timestep an integer by witch you can divide the time at which an event occurs in a sequence. If your times are expressed in days, setting timestep to 7 will express this delay in weeks, grouping de facto all items of the same week (slideing 7 days from the first item)
 #' @param timeUnit the time unit in which time diff will be rendered in timed sequences.
 #' @param parallel if TRUE, then the function will use all the cores of your system and parallelize the creation of your baskets. Default is F because the gain depends on the number of cores and the length of the dataframe
 #' @return df2SPMFSequence returns a list. The toSendSPMF element contains a tibble/dataframe whose slot sequence contains all the sequences in the proper format to export them to a txt file readable by the spmf java library
-#' @keywords
+#' @keywords sequence
 #' @examples seqDF is a dataframe to test the functions. It contains the variables ID, jour, ITEMSETS and PRODUITSnum to be used as an example.
 #' @examples test<-df2SPMFSequence(seqDF,ID="ID",time="jour",event="PRODUITSnum",itemset="ITEMSETS",
-#' @examples timeFormat="%d",parallel = F)
+#' @examples timeFormat="\%d",parallel = F)
 #' @export
 
 

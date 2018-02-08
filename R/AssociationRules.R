@@ -8,7 +8,7 @@
 #' @param windowSize the TRuleGrowth searches for rules X==>Y within a given window size, based on the sequences who contains all the items of X before all the items of Y whithin the windowsize.
 #' @param Those time parameters are only considered when the input is a timed sequence. The only algorithme to be used are then "Fournier08-Closed+time" and "HirateYamana"
 #' @return a dataframe with three columns. sequence contains all the frequent sequences. support is the number of times this sequence occurs, and frequence is support divided by the total number of sequences
-#' @keywords
+#' @keywords Rules
 #' @examples
 #'
 #' @export

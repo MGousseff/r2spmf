@@ -3,7 +3,7 @@
 #' This function is not to be used by the user but to be called by FrequentItemsets or more likely by FrequentSequences.
 #' @param x is a basket or a sequence in the sense of the SPMF format. It is an element from the basket slot of the output of a df2SPMFBasket function call. I
 #' @param evLev the original factor levels to recode to
-#' @keywords
+#' @keywords IDs
 #' @examples
 #'
 #'

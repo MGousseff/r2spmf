@@ -7,7 +7,7 @@
 #' @param clean if clean=F the text files sent to spmf will be kept in the working directory.
 
 #' @return a dataframe with three columns. itemset contains all the frequent itemsets, that is a list of products. support is the number of times this itemsets occurs, and frequence is support divided by the total number of transactions
-#' @keywords
+#' @keywords Itemsets
 #' @examples
 #'
 #'

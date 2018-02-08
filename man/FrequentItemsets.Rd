@@ -7,7 +7,7 @@
 FrequentItemsets(x, algo, minsup, clean = T)
 }
 \arguments{
-\item{x}{is the output of the fnction df2SPMFBasket function. It must contains a toSendSPMF storing a tibble with a basket column. This basket is sent to spmf java library.}
+\item{x}{is the output of the fnction df2SPMFBasket function. It must contain a toSendSPMF storing a tibble with a basket column. This basket is sent to spmf java library.}
 
 \item{algo}{is the name of the algorithm to be used. The possible values are : "Apriori","Apriori_TID","FPGrowth_itemsets","Eclat","HMine","FIN","LCMFreq","AprioriClose","Charm_bitset","dCharm_bitset","LCM","FPMax","Charm_MFI","defME". Please check SPMF documentation at http://www.philippe-fournier-viger.com/spmf/index.php?link=documentation.php}
 

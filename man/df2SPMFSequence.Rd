@@ -2,13 +2,13 @@
 % Please edit documentation in R/df2SPMFSequence.R
 \name{df2SPMFSequence}
 \alias{df2SPMFSequence}
-\title{Basket creating function}
+\title{Sequence creating function}
 \usage{
 df2SPMFSequence(df, ID, itemset = "", event = "", time = "",
-  timeFormat = "", parallel = F)
+  timeFormat = "", timestep = 1, parallel = F, timeUnit = "auto")
 }
 \arguments{
-\item{df}{a data frame from which to create baskets}
+\item{df}{a data frame from which to create sequences}
 
 \item{ID}{the name of the column of IDs, the sequences are built for a given ID}
 
@@ -16,9 +16,13 @@ df2SPMFSequence(df, ID, itemset = "", event = "", time = "",
 
 \item{time}{the name of the column where the time of an event is stored.You need to provide at least one of itemset or time parameters}
 
-\item{timeFormat}{the format in which the time column is encoded (example "%d-%m-%Y") If provided df2SPMFBasket will assume you want time to be taken into account}
+\item{timeFormat}{the format in which the time column is encoded (example "%d-%m-%Y") If provided df2SPMFBasket will assume you want time to be taken into account. To build the proper format, please refer the man page of strptime (via ?strptime)}
+
+\item{timestep}{an integer by witch you can divide the time at which an event occurs in a sequence. If your times are expressed in days, setting timestep to 7 will express this delay in weeks, grouping de facto all items of the same week (slideing 7 days from the first item)}
 
 \item{parallel}{if TRUE, then the function will use all the cores of your system and parallelize the creation of your baskets. Default is F because the gain depends on the number of cores and the length of the dataframe}
+
+\item{timeUnit}{the time unit in which time diff will be rendered in timed sequences.}
 }
 \value{
 df2SPMFSequence returns a list. The toSendSPMF element contains a tibble/dataframe whose slot sequence contains all the sequences in the proper format to export them to a txt file readable by the spmf java library
@@ -28,9 +32,6 @@ This function is called directly by the user to create sequences from a datafram
 }
 \examples{
 seqDF is a dataframe to test the functions. It contains the variables ID, jour, ITEMSETS and PRODUITSnum to be used as an example.
-
-
 test<-df2SPMFSequence(seqDF,ID="ID",time="jour",event="PRODUITSnum",itemset="ITEMSETS",
-
-timeFormat="\%d",parallel = T)
+timeFormat="\%d",parallel = F)
 }

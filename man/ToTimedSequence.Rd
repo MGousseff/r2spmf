@@ -4,12 +4,17 @@
 \alias{ToTimedSequence}
 \title{Sequence creating function, taking care of time}
 \usage{
-ToTimedSequence(x, timeStep = timestep)
+ToTimedSequence(x, timeStep = timestep, timeUnit = timeUnit,
+  timeFormat = timeFormat)
 }
 \arguments{
 \item{x}{a dataframe which must contains variable ID, itemset, eventNum and time}
 
 \item{timeStep}{if time is taken into account in the building of the sequence, this parameter allows to perform an integer division. For instance, if your time is in days but you wish to perform a time constrained sequence mining grouping relying on weeks, timeStep will be 7.}
+
+\item{timeUnit}{this parameter will be used in future versions}
+
+\item{timeFormat}{this parameter is inherited from the df2SPMFSequence function}
 }
 \description{
 This function is not to be used directly, it is called by df2spmfBasket

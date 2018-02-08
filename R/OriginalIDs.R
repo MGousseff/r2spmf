@@ -3,7 +3,7 @@
 #' This function is not to be used by the user but to be called by FrequentSequences.
 #' @param x is a set of IDs supporting a given sequence
 #' @param evLev the original IDs list
-#' @keywords
+#' @keywords IDs
 #' @examples
 #'
 #'
