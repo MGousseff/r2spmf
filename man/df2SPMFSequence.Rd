@@ -16,7 +16,7 @@ df2SPMFSequence(df, ID, itemset = "", event = "", time = "",
 
 \item{time}{the name of the column where the time of an event is stored.You need to provide at least one of itemset or time parameters}
 
-\item{timeFormat}{the format in which the time column is encoded (example "%d-%m-%Y") If provided df2SPMFBasket will assume you want time to be taken into account. To build the proper format, please refer the man page of strptime (via ?strptime)}
+\item{timeFormat}{the format in which the time column is encoded (example "\%d-\%m-\%Y") If provided df2SPMFBasket will assume you want time to be taken into account. To build the proper format, please refer the man page of strptime (via ?strptime)}
 
 \item{timestep}{an integer by witch you can divide the time at which an event occurs in a sequence. If your times are expressed in days, setting timestep to 7 will express this delay in weeks, grouping de facto all items of the same week (slideing 7 days from the first item)}
 
@@ -33,5 +33,6 @@ This function is called directly by the user to create sequences from a datafram
 \examples{
 seqDF is a dataframe to test the functions. It contains the variables ID, jour, ITEMSETS and PRODUITSnum to be used as an example.
 test<-df2SPMFSequence(seqDF,ID="ID",time="jour",event="PRODUITSnum",itemset="ITEMSETS",
-timeFormat="\%d",parallel = F)
+timeFormat="\\\%d",parallel = F)
 }
+\keyword{sequence}

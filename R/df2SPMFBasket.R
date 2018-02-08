@@ -28,7 +28,7 @@
 #' @keywords baskets
 #' @examples seqDF is a dataframe to test the functions. It contains the variables ID, jour, ITEMSETS and PRODUITSnum to be used as an example.
 #' test<-df2SPMFBasket(seqDF,ID="ID",time="jour",event="PRODUITSnum",
-#' itemset="ITEMSETS",timeFormat="\%d",parallel = T)
+#' itemset="ITEMSETS",timeFormat="\%d",parallel = F)
 #' @export
 
 

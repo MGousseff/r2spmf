@@ -29,3 +29,4 @@ This function sends a list of baskets to spmf and gets back Association Rules wi
 \examples{
 
 }
+\keyword{Rules}

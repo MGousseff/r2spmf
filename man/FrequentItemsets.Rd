@@ -27,3 +27,4 @@ This function sends a list of baskets to spmf and gets back the most frequent it
 
 
 }
+\keyword{Itemsets}
