@@ -38,3 +38,4 @@ This function sends a list of sequences to spmf and gets back the most frequent 
 
 
 }
+\keyword{sequences}

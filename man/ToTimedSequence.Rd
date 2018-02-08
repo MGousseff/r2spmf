@@ -20,6 +20,6 @@ ToTimedSequence(x, timeStep = timestep, timeUnit = timeUnit,
 This function is not to be used directly, it is called by df2spmfBasket
 }
 \examples{
-ToSequenceBasket()
+ ToSequenceBasket()
 }
-\keyword{baskets}
+\keyword{sequences}

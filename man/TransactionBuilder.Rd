@@ -31,3 +31,5 @@ Input is a data frame and affects a sequence ID to the events related to an ID, 
 \examples{
 
 }
+\keyword{Transaction}
+\keyword{database}
