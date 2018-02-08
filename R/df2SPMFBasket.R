@@ -5,15 +5,13 @@
 #' @param ID the name of the column of IDs. They allow the grouping by 'customer'.
 #' @param itemset the name of the column of itemsets, that is of the product bought together. You need to provide at least one of itemset or time parameters
 #' @param time the name of the column where the time of an event is stored.You need to provide at least one of itemset or time parameters
-#' @param timeFormat the format in which the time column is encoded (example "%d-%m-%Y") If provided df2SPMFBasket will assume you want time to be taken into account
+#' @param timeFormat the format in which the time column is encoded (example %d-%m-%Y) If provided df2SPMFBasket will assume you want time to be taken into account
 #' @param parallel if TRUE, then the function will use all the cores of your system and parallelize the creation of your baskets. Default is F because the gain depends on the number of cores and the length of the dataframe
 #' @return df2SPMFBasket returns a list. toSendSPMF contains a dataframe whose slot basket contains all the basket in the proper format to export them to a txt file readable by the spmf java library
 #' @keywords
-#' @examples
-#'
-#' test<-df2SPMFBasket(seqDF,ID="ID",time="jour",event="PRODUITSnum",
-#'
-#' itemset="ITEMSETS",timeFormat="%d",parallel = T)
+#' @examples seqDF is a dataframe to test the functions. It contains the variables ID, jour, ITEMSETS and PRODUITSnum to be used as an example.
+#' @examples test<-df2SPMFBasket(seqDF,ID="ID",time="jour",event="PRODUITSnum",
+#' @examples itemset="ITEMSETS",timeFormat="%d",parallel = T)
 #' @export
 
 
