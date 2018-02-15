@@ -19,7 +19,8 @@
 #'
 #' @export
 
-FrequentSequences<-function(x,algo,minsup=0.5,nbEventMax="",showID="",clean=T,minTime="",maxTime="",minWhole="",maxWhole=""){ # x is the output of df2sequenceSPMF (better recode this in S4 one day)
+FrequentSequences<-function(x,algo,minsup=0.5,nbEventMax="",showID="",clean=T,
+                            minTime="",maxTime="",minWhole="",maxWhole="",k=NULL){ # x is the output of df2sequenceSPMF (better recode this in S4 one day)
   require(tidyverse)
   freqSeqAlgos<-c("PrefixSpan","PrefixSpan_AGP","GSP","SPADE","CM-SPADE","SPAM","LAPIN")
   freqClosedSeqAlgos<-c("ClaSP","CM-ClaSP","CloSpan","BIDE+")
@@ -27,42 +28,67 @@ FrequentSequences<-function(x,algo,minsup=0.5,nbEventMax="",showID="",clean=T,mi
   freqGeneratorSeqAlgos<-c("FEAT","FSGP","VGEN")
   CompressingSeq<-"GoKrimp"
   freqTimeConstraintAlgos<-c("Fournier08-Closed+time","HirateYamana")
+  topK<-"TKS"
 
   #### Encore à inclure :
   # freqTopKSeqAlgos<-c("TKS","TSP")      # ATTENTION AUX PARAMETRES SUPPLEMENTAIRES
   # freq
 
 
+ ## Attention : the code can be drastically improved. For now, the instructions are duplicated for readbility purpose
 
-  if(algo=="GoKrimp"){minsup<-""}
+
+  if(algo=="GoKrimp"|algo=="TKS"){minsup<-""}
 
   if((!("toSendSPMF"%in%attributes(x)$names))){stop("The input file is supposed to be the output of a df2SPMFSequence function")}
   else{
     df<-x$toSendSPMF$sequence
 
-    if(algo%in%freqTimeConstraintAlgos & !grepl("<[[:digit:]]+>",df[1])){stop("Hirate Yamana algorithm can only be use on time extended sequences")}else{
+    if(algo%in%freqTimeConstraintAlgos & !grepl("<[[:digit:]]+>",df[1]))
+      {stop("Hirate Yamana algorithm can only be use on time extended sequences")}else{
 
-      if (algo=="PrefixSpan_AGP"& (showID==T | showID=="true")){showID<-"true"}else{showID=""}
-      fileNameIn<-paste(paste(substitute(x),algo,minsup,showID,sep="."),".txt",sep="")
-      fileNameOut<-paste(paste(substitute(x),algo,minsup,showID, "out",sep="."),".txt",sep="")
-      print(fileNameIn)
-      write.table(df,fileNameIn,quote=F,row.names=F,col.names=F)
-      instruct<-paste("java -jar spmf.jar run", algo, fileNameIn, fileNameOut, minsup, nbEventMax, showID, collapse=" ")
+      if (algo=="PrefixSpan_AGP"){
+        if(showID==T | showID=="true"){showID<-"true"}else{showID=""}
+        fileNameIn<-paste(paste(substitute(x),algo,minsup,showID,sep="."),".txt",sep="")
+        fileNameOut<-paste(paste(substitute(x),algo,minsup,showID, "out",sep="."),".txt",sep="")
+        print(fileNameIn)
+        write.table(df,fileNameIn,quote=F,row.names=F,col.names=F)
+        instruct<-paste("java -jar spmf.jar run", algo,
+                        fileNameIn, fileNameOut, minsup, nbEventMax, showID, collapse=" ")}
+
+      if(algo%in%freqSeqAlgos & (algo!="PrefixSpan_AGP")){
+        fileNameIn<-paste(paste(substitute(x),algo,minsup,showID,sep="."),".txt",sep="")
+        fileNameOut<-paste(paste(substitute(x),algo,minsup,showID, "out",sep="."),".txt",sep="")
+        print(fileNameIn)
+        write.table(df,fileNameIn,quote=F,row.names=F,col.names=F)
+        instruct<-paste("java -jar spmf.jar run", algo, fileNameIn, fileNameOut, minsup)
+      }
 
       if(algo=="GoKrimp"){            # Special case of GoKrimp algorithm
         fileNameIn<-paste(paste(substitute(x),algo,sep="."),".txt",sep="")
         fileNameLab<-paste(paste(substitute(x),algo,sep="."),".lab",sep="")
         write.table(df,fileNameIn,quote=F,row.names=F,col.names=F)
         write.table(x$evLev,fileNameLab,quote=F,row.names=F,col.names=F)
-        instruct<-paste("java -jar spmf.jar run", algo, fileNameIn, fileNameOut,fileNameLab, collapse=" ")
+        instruct<-paste("java -jar spmf.jar run", algo, fileNameIn,
+                        fileNameOut,fileNameLab, collapse=" ")
       }
 
       if(algo%in%freqTimeConstraintAlgos){            # Special case of Time constrained algorithm
         fileNameIn<-paste(paste(substitute(x),algo, minsup, minTime, maxTime, minWhole, maxWhole, sep="."), ".txt",sep="")
         fileNameOut<-paste(paste(substitute(x),algo,minTime, maxTime, minWhole, maxWhole,"out", sep="."), ".txt",sep="")
-        write.table(df,fileNameIn,quote=F,row.names=F,col.names=F)
+
         instruct<-paste("java -jar spmf.jar run", algo, fileNameIn, fileNameOut, minsup,minTime, maxTime, minWhole,maxWhole, collapse=" ")
       }
+
+        if(algo=="TKS"){
+          print(paste(algo,k))
+          fileNameIn<-paste(paste(substitute(x),algo,k,sep="."),".txt",sep="")
+          fileNameOut<-paste(paste(substitute(x),algo,k,"out", sep="."), ".txt",sep="")
+          write.table(df,fileNameIn,quote=F,row.names=F,col.names=F)
+          instruct<-paste("java -jar spmf.jar run", algo, fileNameIn, fileNameOut,k, collapse=" ")
+        }
+
+
 
       print(instruct)
       system(instruct)
