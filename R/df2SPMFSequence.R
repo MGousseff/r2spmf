@@ -57,7 +57,7 @@ df2SPMFSequence<-function(df,ID,itemset="",event="",time="",timeFormat="",timest
         cl
         #création des groupes pour cluster
         x$originalID<-x$ID
-        x$ID<-as.numeric(as.factor(x$OriginalID))
+        x$ID<-as.numeric(as.factor(x$originalID))
         max_ID<-max(x$ID)
         print(max_ID)
         nbGroups<-max_ID%/%cl
