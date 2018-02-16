@@ -20,9 +20,9 @@
 #' @export
 
 FrequentSequences<-function(x,algo,minsup=0.5,nbEventMax="",showID="",clean=T,
-                            minTime="",maxTime="",minWhole="",maxWhole="",k=NULL){ # x is the output of df2sequenceSPMF (better recode this in S4 one day)
+                            minTime="",maxTime="",minWhole="",maxWhole="",k=NULL, maxSeq=NULL,maxGap=NULL){ # x is the output of df2sequenceSPMF (better recode this in S4 one day)
   require(tidyverse)
-  freqSeqAlgos<-c("PrefixSpan","PrefixSpan_AGP","GSP","SPADE","CM-SPADE","SPAM","LAPIN")
+  freqSeqAlgos<-c("PrefixSpan","PrefixSpan_AGP","GSP","SPADE","CM-SPADE","SPAM","LAPIN","ClaSP")
   freqClosedSeqAlgos<-c("ClaSP","CM-ClaSP","CloSpan","BIDE+")
   freqMaxSeqAlgos<-c("MaxSP","VMSP")
   freqGeneratorSeqAlgos<-c("FEAT","FSGP","VGEN")
@@ -88,6 +88,15 @@ FrequentSequences<-function(x,algo,minsup=0.5,nbEventMax="",showID="",clean=T,
           instruct<-paste("java -jar spmf.jar run", algo, fileNameIn, fileNameOut,k, collapse=" ")
         }
 
+        if(algo=="VMSP"){
+          print(paste(algo,k))
+          if (showID==TRUE|showID=="true"|showID=="TRUE"){showID<-"true"}else(showID<-"")
+          fileNameIn<-paste(paste(substitute(x),algo,minsup,maxSeq,maxGap,showID,sep="."),".txt",sep="")
+          fileNameOut<-paste(paste(substitute(x),algo,minsup,maxSeq,maxGap,showID,"out", sep="."), ".txt",sep="")
+          write.table(df,fileNameIn,quote=F,row.names=F,col.names=F)
+          instruct<-paste("java -jar spmf.jar run", algo, fileNameIn, fileNameOut,minsup,maxSeq,maxGap,showID, collapse=" ")
+        }
+
 
 
       print(instruct)
@@ -97,7 +106,7 @@ FrequentSequences<-function(x,algo,minsup=0.5,nbEventMax="",showID="",clean=T,
       dfOUT<-gsub(pattern="(#[[:upper:]]{3}:)",replacement=";",x=readLines(fileNameOut)) %>% textConnection() %>%
         read.table(sep=";") %>% as.data.frame()   # the SUP: or #IDS: seperators in SPMF are simply changed in ";" in order to read the output file of SPMF
 
-      if ((algo=="PrefixSpan_AGP"& showID==T|showID=="true")){ names(dfOUT)<-c("sequence","support","IDs")}else{
+      if ((algo=="PrefixSpan_AGP" |algo=="VMSP") & (showID==T|showID=="true")){ names(dfOUT)<-c("sequence","support","IDs")}else{
         names(dfOUT)<-c("sequence","support")}
 
       if(clean==T){
